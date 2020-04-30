@@ -1,0 +1,44 @@
+FUNCTION_BLOCK calculo_km_por_litro
+
+VAR_INPUT
+	velocidade : REAL;
+	ar_condicionado : REAL;
+END_VAR
+
+VAR_OUTPUT
+	km_por_litro : REAL;
+END_VAR
+
+FUZZIFY velocidade
+	TERM baixa := (0, 1) (30,1)(50, 0) ; 
+	TERM media := (50,0) (60, 1) (80,1) (90,0);
+	TERM alta := (90, 0) (100,1) (150, 1);
+END_FUZZIFY
+
+FUZZIFY ar_condicionado
+	TERM baixo := (0, 1) (2,0) ;
+	TERM alto := (2,0) (4,1);
+END_FUZZIFY
+
+DEFUZZIFY km_por_litro
+	TERM baixo := (5,1)(8,0);
+	TERM medio := (8,0)(10,1)(12,0);
+	TERM alto := (12,0)(15,1);
+	METHOD : COG;
+	DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;
+	ACT : MIN;
+	ACCU : MAX;
+
+	RULE 1 : IF velocidade IS baixa THEN km_por_litro IS baixo;
+	RULE 2 : IF velocidade IS baixa AND ar_condicionado IS alto THEN km_por_litro IS medio;
+	RULE 3 : IF velocidade IS media THEN km_por_litro IS medio;
+	RULE 4 : IF velocidade IS alta THEN km_por_litro IS alto;
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
