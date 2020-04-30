@@ -1,5 +1,5 @@
 # trabalho-fuzzy-combustivel
-Trabalho para a disciplina de Modelos Evolucionários e Tratamento de Incertezas
+Trabalho para a disciplina de Modelos Evolucionários e Tratamento de Incertezas.
 
 Para determinar a performance de um carro (nesse modelo representado como km percorrido à cada litro de gasolina)
 utilizamos as variáveis "velocidade" e "ar_condicionado". 
